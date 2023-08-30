@@ -10,12 +10,16 @@ const app = express();
 
 const cors = require("cors");
 const corsOptions = {
-  origin: 'http://localhost:5173',
+  origin: `${process.env.REQ_ORIGIN}`,
   optionsSuccessStatus: 200 
 }
 
 const mongoose = require("mongoose");
-//...
+const mongoDB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PWD}@cluster0.j0fm9pk.mongodb.net/?retryWrites=true&w=majority`;
+async function main() {
+  await mongoose.connect(mongoDB);
+}
+main().catch((err) => console.log(err));
 
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: false }));
