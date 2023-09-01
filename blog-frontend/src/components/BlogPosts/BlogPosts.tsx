@@ -12,7 +12,7 @@ export const BlogPosts = () => {
   useEffect(() => {
     const getBlogPosts = async () => {
       try {
-        const blogPosts = (await axios.get("http://localhost:30001")).data
+        const blogPosts = (await axios.get("http://localhost:3000/posts")).data
           .allBlogPosts;
         setAllBlogPosts(blogPosts);
         console.log(blogPosts);
@@ -37,9 +37,29 @@ export const BlogPosts = () => {
           </ul>
         </>
       ) : (
-        <>
-          <h2>{allBlogPosts ? `${allBlogPosts[0].title}` : ""}</h2>
-        </>
+        <div className="grid gap-4 mt-24">
+          {allBlogPosts?.map((blogPost) => {
+            if (!blogPost.is_published) return;
+            return (
+              <div
+                key={blogPost._id}
+                className="grid grid-cols-[auto_1fr] gap-6 border-2 border-gray-200 shadow-sm hover:shadow-[0_3px_3px_0_rgba(0,0,0,0.25)] cursor-pointer transition-shadow duration-200"
+              >
+                <img
+                  src={`/images/${blogPost._id}/lp.png`}
+                  alt="idk"
+                  width="300px"
+                  height="185px"
+                  className="rounded"
+                />
+                <div>
+                  <h2 className="text-4xl mb-4">{blogPost.title}</h2>
+                  <h3 className="text opacity-80">{blogPost.synopsis}</h3>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       )}
     </>
   );

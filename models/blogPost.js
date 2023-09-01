@@ -9,8 +9,6 @@ const BlogPostSchema = new Schema({
   date: { type: Date },
   comments: [{ type: Schema.Types.ObjectId, ref: "Comments" }],
   is_published: { type: Boolean, required: true },
-  lp_image_path: { type: String },
-  inside_image_path: { type: String },
 });
 
 BlogPostSchema.virtual("date_formatted").get(function () {
