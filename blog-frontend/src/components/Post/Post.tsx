@@ -1,23 +1,23 @@
+import { useEffect, useState } from "react";
 import { BlogPostProps } from "../../types/BlogPostProps";
 import { LandingPageProps } from "../../types/LandingPageProps";
 import { useLocation } from "react-router-dom";
-import structuredClone from "@ungap/structured-clone"
+
 
 export const Post = ({ error, allBlogPosts }: LandingPageProps) => {
   const id = useLocation();
+  const [currentPost, setCurrentPost] = useState<BlogPostProps | null>(null);
 
-  
-  const currentPost = allBlogPosts?.filter(
-    (post) => post._id === id.state.id
-  ) as BlogPostProps[];
-  
-
-  const post = { post: currentPost[0] }
-
+  useEffect(() => {
+    if (allBlogPosts) {
+      const post = allBlogPosts.find((post) => post._id === id.state.id);
+      setCurrentPost(post || null);
+    }
+  }, [allBlogPosts, id.state.id]);
 
   return (
     <main className="p-24">
-{/*       {error ? (
+      {error ? (
         <>
           <h2 className="text-3xl mb-8">Something went wrong...</h2>
           <ul className="text-red-400">
@@ -26,16 +26,16 @@ export const Post = ({ error, allBlogPosts }: LandingPageProps) => {
             <li key={error.code}>Code: {error.code}</li>
           </ul>
         </>
-      ) : (
+      ) : currentPost ? (
         <>
-          <header className="text-5xl opacity-80">{post[0].title}</header>
+          <header className="text-5xl opacity-80">{currentPost.title}</header>
           <h5 className="text-lg opacity-[65%] mt-4">by Me</h5>
-
-          <article>
-            {post[0].content}
-          </article>
+          <article>{currentPost.content}</article>
         </>
-      )} */}
+      ) : (
+        // Add loading indicator or message here
+        <p>Loading...</p>
+      )}
     </main>
   );
 };
