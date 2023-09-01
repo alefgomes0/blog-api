@@ -12,10 +12,10 @@ export const CommentSection = (props: CommentSectionProps) => {
       <label htmlFor="name" className="mb-2">
         Name
       </label>
-      <input type="text" name="name" className="bg-neutral-200 opacity-90 w-72 mb-4 rounded" />
-      <label htmlFor="message mb-2">Message</label>
-      <textarea name="message" className="bg-neutral-200 opacity-90 w-96 h-48 mb-6 rounded" />
-      <button type="submit" className="bg-fuchsia-400 w-min text-slate-100 rounded-md px-12 py-2">
+      <input type="text" name="name" className="bg-neutral-200 opacity-90 w-72 mb-4 focus:border-0 outline-0 rounded focus:ring-2 focus:ring-sky-300" />
+      <label htmlFor="message pb-3">Message</label>
+      <textarea name="message" className="bg-neutral-200 opacity-90 w-96 h-48 mb-6 rounded focus:border-0 outline-0 rounded focus:ring-2 focus:ring-sky-300" />
+      <button type="submit" className="bg-fuchsia-700 w-min text-slate-100 rounded-md px-12 py-2 shadow-2xl">
         SEND
       </button>
     </form>
