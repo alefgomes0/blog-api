@@ -41,8 +41,8 @@ export const Post = ({ error, allBlogPosts }: LandingPageProps) => {
       ) : (
         <Spinner />
       )}
-      <h3 className="text-2xl mt-16">X Comments</h3>
-      <hr />
+      <h3 className="text-2xl mt-16 mb-2">X Comments</h3>
+      <hr className="border-2"/>
       <CommentSection postId={id.state.id}/>
     </main>
   );
