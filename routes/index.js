@@ -1,10 +1,8 @@
-const express = require("express")
-const router = express.Router()
-const teste = require("../controllers/teste")
+const express = require("express");
+const router = express.Router();
+const blogPost = require("../controllers/blogController")
 
 
-router.get("/", (req, res, next) => res.send("oiii"))
-router.get("/teste", teste.testando)
+router.get("/", blogPost.get);
 
-
-module.exports = router
+module.exports = router;

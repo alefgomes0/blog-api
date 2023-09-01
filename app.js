@@ -29,6 +29,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors(corsOptions));
 app.use("/", indexRouter);
 
+
 app.use((err, req, res, next) => {
   res.json({
     error: err
