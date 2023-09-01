@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { BlogPostProps } from "../../types/BlogPostProps";
 import { LandingPageProps } from "../../types/LandingPageProps";
 import { useLocation } from "react-router-dom";
+import { Spinner } from "../Spinner/Spinner";
+import { CommentSection } from "../CommentSection/CommentSection";
 
 
 export const Post = ({ error, allBlogPosts }: LandingPageProps) => {
@@ -28,14 +30,20 @@ export const Post = ({ error, allBlogPosts }: LandingPageProps) => {
         </>
       ) : currentPost ? (
         <>
-          <header className="text-5xl opacity-80">{currentPost.title}</header>
-          <h5 className="text-lg opacity-[65%] mt-4">by Me</h5>
-          <article>{currentPost.content}</article>
+          <header className="text-5xl opacity-80">
+            <h2>{currentPost.title}</h2>
+          </header>
+          <h5 className="text-lg opacity-[65%] mt-4 ml-1 mb-12">by Me</h5>
+          <article>
+            <h3>{currentPost.content}</h3>
+          </article>
         </>
       ) : (
-        // Add loading indicator or message here
-        <p>Loading...</p>
+        <Spinner />
       )}
+      <h3 className="text-2xl mt-16">X Comments</h3>
+      <hr />
+      <CommentSection postId={id.state.id}/>
     </main>
   );
 };
