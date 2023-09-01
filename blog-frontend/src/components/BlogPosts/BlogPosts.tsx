@@ -1,41 +1,16 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { BlogPostProps } from "../../types/BlogPostProps";
-import { AxiosErrorProps } from "../../types/AxiosErrorProps";
+import { LandingPageProps } from "../../types/LandingPageProps";
 import { Link } from "react-router-dom";
 
-
-export const BlogPosts = () => {
-  const [allBlogPosts, setAllBlogPosts] = useState<null | BlogPostProps[]>(
-    null
-  );
-  const [error, setError] = useState<null | AxiosErrorProps>(null);
-
-  useEffect(() => {
-    const getBlogPosts = async () => {
-      try {
-        const blogPosts = (await axios.get("http://localhost:3000/posts")).data
-          .allBlogPosts;
-        setAllBlogPosts(blogPosts);
-        console.log(blogPosts);
-      } catch (err) {
-        setError(err as AxiosErrorProps);
-        console.error(err);
-      }
-    };
-
-    getBlogPosts();
-  }, []);
-
+export const BlogPosts = ({ error, allBlogPosts }: LandingPageProps) => {
   return (
     <>
       {error ? (
         <>
           <h2 className="text-3xl mb-8">Something went wrong...</h2>
           <ul className="text-red-400">
-            <li>Name: {error.name}</li>
-            <li>Message: {error.message}</li>
-            <li>Code: {error.code}</li>
+            <li key={error.name}>Name: {error.name}</li>
+            <li key={error.message}>Message: {error.message}</li>
+            <li key={error.code}>Code: {error.code}</li>
           </ul>
         </>
       ) : (
@@ -47,6 +22,8 @@ export const BlogPosts = () => {
                 to={`/posts/${blogPost.title
                   .replaceAll(" ", "-")
                   .toLowerCase()}`}
+                key={blogPost._id}
+                state={{ id: blogPost._id }}
               >
                 <div
                   key={blogPost._id}
@@ -63,7 +40,7 @@ export const BlogPosts = () => {
                     <h2 className="text-4xl mb-4 opacity-80">
                       {blogPost.title}
                     </h2>
-                    <h3 className="text opacity-60">{blogPost.synopsis}</h3>
+                    <h3 className="text opacity-[65%]">{blogPost.synopsis}</h3>
                   </div>
                 </div>
               </Link>
