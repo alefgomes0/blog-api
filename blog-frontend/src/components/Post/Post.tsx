@@ -3,6 +3,7 @@ import { BlogPostProps } from "../../types/BlogPostProps";
 import { LandingPageProps } from "../../types/LandingPageProps";
 import { useLocation } from "react-router-dom";
 import { Spinner } from "../Spinner/Spinner";
+import { CommentForm } from "../CommentForm/CommentForm";
 import { CommentSection } from "../CommentSection/CommentSection";
 
 
@@ -41,9 +42,8 @@ export const Post = ({ error, allBlogPosts }: LandingPageProps) => {
       ) : (
         <Spinner />
       )}
-      <h3 className="text-2xl mt-16 mb-2">X Comments</h3>
-      <hr className="border-2"/>
       <CommentSection postId={id.state.id}/>
+      <CommentForm postId={id.state.id}/>
     </main>
   );
 };
