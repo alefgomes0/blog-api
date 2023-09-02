@@ -23,12 +23,15 @@ exports.post = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.log(errors)
-      res.json(errors)
+      res.json({
+        errors: errors.array()
+      });
+    } else {
+      console.log("start");
+      const postId = req.params.postId;
+      const blogPost = await BlogPost.findOne({ _id: postId }).exec();
+      console.log(req.body.name, req.body.message);
+      res.json(blogPost);
     }
-
-    console.log("start");
-    const postId = req.params.postId;
-    const blogPost = await BlogPost.findOne({ _id: postId }).exec();
-    console.log(req.body.name, req.body.message)
   }),
 ];

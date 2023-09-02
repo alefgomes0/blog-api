@@ -2,11 +2,20 @@ import axios from "axios";
 import { CommentProps } from "../../types/CommentProps";
 import { useState } from "react";
 
+type ValidationErrorProps = {
+  path: string;
+  message: string;
+};
+
 export const CommentForm = (props: CommentProps) => {
   const [formData, setFormData] = useState({
     name: "",
     message: "",
   });
+  const [error, setError] = useState<null | unknown>(null);
+  const [validationError, setValidationError] = useState<
+    null | ValidationErrorProps | ValidationErrorProps[]
+  >(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -16,25 +25,25 @@ export const CommentForm = (props: CommentProps) => {
         `http://localhost:3000/posts/${props.postId}/comments`,
         {
           name: formData.name,
-          message: formData.message
+          message: formData.message,
         }
       );
+      if (response.data.errors) {
+        console.log("oiiiiiiiiiiiii");
+        return;
+      }
 
-      if (response.status === 200) {
-        // Handle a successful response (e.g., show a success message)
-        console.log("Comment submitted successfully!");
-        // You can reset the form here if needed
+      if (response.status === 200 || response.status === 304) {
         setFormData({
           name: "",
           message: "",
         });
-      } else {
-        // Handle errors (e.g., display validation errors from the server)
-        const errorData = await response.json();
-        console.error("Error:", errorData);
       }
-    } catch (error) {
-      console.error("Error:", error);
+
+      console.log(response);
+    } catch (err) {
+      setError(err);
+      console.log(err);
     }
   };
 
