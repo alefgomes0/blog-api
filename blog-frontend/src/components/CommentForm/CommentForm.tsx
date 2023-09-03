@@ -1,21 +1,29 @@
 import axios from "axios";
-import { CommentsProps } from "../../types/CommentProps";
 import { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
+
+type CommentChildProps = {
+  postId: string;
+  newMessageSent: boolean;
+  changeNewMessageSent: () => void;
+};
 
 type FieldValuesProps = {
   name: string;
   message: string;
 };
 
-export const CommentForm = (props: CommentsProps) => {
+export const CommentForm = ({
+  postId,
+  changeNewMessageSent,
+}: CommentChildProps) => {
   const [httpError, setHTTPError] = useState<null | unknown>(null);
 
   const handleSubmitForm = async (fieldValues: FieldValuesProps) => {
     try {
       const response = await axios.post(
-        `http://localhost:3000/posts/${props.postId}/comments`,
+        `http://localhost:3000/posts/${postId}/comments`,
         {
           name: fieldValues.name,
           message: fieldValues.message,
@@ -25,6 +33,7 @@ export const CommentForm = (props: CommentsProps) => {
       if (response.status === 200) {
         fieldValues.name = "";
         fieldValues.message = "";
+        changeNewMessageSent();
       }
     } catch (err) {
       setHTTPError(err);

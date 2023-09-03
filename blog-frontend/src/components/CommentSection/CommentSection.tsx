@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
-import { CommentsProps } from "../../types/CommentProps";
 import axios from "axios";
 import { AxiosErrorProps } from "../../types/AxiosErrorProps";
+
+type CommentChildProps = {
+  postId: string;
+  newMessageSent: boolean;
+  changeNewMessageSent: () => void;
+};
 
 type MessageProps = {
   _id: string;
@@ -11,7 +16,10 @@ type MessageProps = {
   date_formatted: string;
 };
 
-export const CommentSection = ({ postId }: CommentsProps) => {
+export const CommentSection = ({
+  postId,
+  newMessageSent,
+}: CommentChildProps) => {
   const [comments, setComments] = useState<null | MessageProps[]>(null);
   const [error, setError] = useState<null | AxiosErrorProps>(null);
 
@@ -30,7 +38,7 @@ export const CommentSection = ({ postId }: CommentsProps) => {
     };
 
     fetchComments();
-  }, [postId]);
+  }, [postId, newMessageSent]);
 
   return (
     <section className="mt-16">
@@ -44,7 +52,10 @@ export const CommentSection = ({ postId }: CommentsProps) => {
           <h4 className="text-4xl">{comments?.length} comments</h4>
           {comments?.map((comment) => {
             return (
-              <div key={comment._id} className="grid mt-8 border-2 border-fuchsia-200 py-4">
+              <div
+                key={comment._id}
+                className="grid mt-8 border-2 border-fuchsia-200 py-4"
+              >
                 <h5 className="text-xl font-semibold">{comment.name}</h5>
                 <h5>{comment.date_formatted}</h5>
                 <h5 className="mt-4">{comment.message}</h5>
