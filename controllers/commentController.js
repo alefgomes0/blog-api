@@ -1,15 +1,22 @@
 const Comment = require("../models/comments");
 const BlogPost = require("../models/blogPost");
 const asyncHandler = require("express-async-handler");
-const { body, validationResult } = require("express-validator");
-const comments = require("../models/comments");
+const { body } = require("express-validator");
+
+exports.get = asyncHandler(async (req, res, next) => {
+  const allPostComments = await Comment.find({
+    blogPost: req.params.postId,
+  }).exec();
+  res.json({
+    comments: allPostComments,
+  });
+});
 
 exports.post = [
   body("name").escape().trim(),
   body("message").escape().trim(),
 
   asyncHandler(async (req, res, next) => {
-    console.log("start");
     const postId = req.params.postId;
 
     const comment = new Comment({
@@ -25,6 +32,6 @@ exports.post = [
       }).exec(),
       comment.save(),
     ]);
-    res.json((res.status = 200));
+    res.status(200).json({ message: "Comment sent successfully" });
   }),
 ];

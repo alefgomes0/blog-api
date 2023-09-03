@@ -6,7 +6,6 @@ import { Spinner } from "../Spinner/Spinner";
 import { CommentForm } from "../CommentForm/CommentForm";
 import { CommentSection } from "../CommentSection/CommentSection";
 
-
 export const Post = ({ error, allBlogPosts }: LandingPageProps) => {
   const id = useLocation();
   const [currentPost, setCurrentPost] = useState<BlogPostProps | null>(null);
@@ -42,8 +41,10 @@ export const Post = ({ error, allBlogPosts }: LandingPageProps) => {
       ) : (
         <Spinner />
       )}
-      <CommentSection postId={id.state.id}/>
-      <CommentForm postId={id.state.id}/>
+      <h3 className="text-2xl mt-32 mb-2">Comments</h3>
+      <hr className="border-2" />
+      <CommentForm postId={id.state.id} />
+      <CommentSection postId={id.state.id} />
     </main>
   );
 };
