@@ -2,6 +2,7 @@ const Comment = require("../models/comments");
 const BlogPost = require("../models/blogPost");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const comments = require("../models/comments");
 
 exports.post = [
   body("name").escape().trim(),
@@ -18,9 +19,12 @@ exports.post = [
       blogPost: postId,
     });
 
-    const blogPost = await BlogPost.findOne({ _id: postId }).exec();
-    blogPost.comments.push(comment._id);
-    await Promise.all([blogPost.save(), comment.save()]);
-    res.json(res.status = 200)
+    await Promise.all([
+      BlogPost.findByIdAndUpdate(postId, {
+        $push: { comments: comment._id },
+      }).exec(),
+      comment.save(),
+    ]);
+    res.json((res.status = 200));
   }),
 ];
