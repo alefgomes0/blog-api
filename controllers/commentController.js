@@ -6,18 +6,10 @@ const { body, validationResult } = require("express-validator");
 exports.post = [
   body("name")
     .escape()
-    .trim()
-    .isLength({ min: 2, max: 30 })
-    .withMessage(
-      "'Name' field should have at least 2 and at max 30 characters"
-    ),
+    .trim(),
   body("message")
     .escape()
-    .trim()
-    .isLength({ min: 2, max: 300 })
-    .withMessage(
-      "'Message' field should have at least 2 and at max 300 characters"
-    ),
+    .trim(),
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
