@@ -3,8 +3,7 @@ import { BlogPostProps } from "../../types/BlogPostProps";
 import { LandingPageProps } from "../../types/LandingPageProps";
 import { useLocation } from "react-router-dom";
 import { Spinner } from "../Spinner/Spinner";
-import { CommentForm } from "../CommentForm/CommentForm";
-import { CommentSection } from "../CommentSection/CommentSection";
+import { Comments } from "../Comments/Comments";
 
 export const Post = ({ error, allBlogPosts }: LandingPageProps) => {
   const id = useLocation();
@@ -43,8 +42,7 @@ export const Post = ({ error, allBlogPosts }: LandingPageProps) => {
       )}
       <h3 className="text-2xl mt-32 mb-2">Comments</h3>
       <hr className="border-2" />
-      <CommentForm postId={id.state.id} />
-      <CommentSection postId={id.state.id} />
+      <Comments postId={id.state.id}/>
     </main>
   );
 };

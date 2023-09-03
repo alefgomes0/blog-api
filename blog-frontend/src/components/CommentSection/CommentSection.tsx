@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CommentProps } from "../../types/CommentProps";
+import { CommentsProps } from "../../types/CommentProps";
 import axios from "axios";
 import { AxiosErrorProps } from "../../types/AxiosErrorProps";
 
@@ -7,10 +7,11 @@ type MessageProps = {
   _id: string;
   name: string;
   message: string;
-  date: Date
+  date: Date;
+  date_formatted: string;
 };
 
-export const CommentSection = ({ postId }: CommentProps) => {
+export const CommentSection = ({ postId }: CommentsProps) => {
   const [comments, setComments] = useState<null | MessageProps[]>(null);
   const [error, setError] = useState<null | AxiosErrorProps>(null);
 
@@ -43,9 +44,10 @@ export const CommentSection = ({ postId }: CommentProps) => {
           <h4 className="text-4xl">{comments?.length} comments</h4>
           {comments?.map((comment) => {
             return (
-              <div key={comment._id} className="mt-8">
-                <h5>{comment.name}</h5>
-                <h5>{comment.message}</h5>
+              <div key={comment._id} className="grid mt-8 border-2 border-fuchsia-200 py-4">
+                <h5 className="text-xl font-semibold">{comment.name}</h5>
+                <h5>{comment.date_formatted}</h5>
+                <h5 className="mt-4">{comment.message}</h5>
               </div>
             );
           })}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CommentProps } from "../../types/CommentProps";
+import { CommentsProps } from "../../types/CommentProps";
 import { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -9,7 +9,7 @@ type FieldValuesProps = {
   message: string;
 };
 
-export const CommentForm = (props: CommentProps) => {
+export const CommentForm = (props: CommentsProps) => {
   const [httpError, setHTTPError] = useState<null | unknown>(null);
 
   const handleSubmitForm = async (fieldValues: FieldValuesProps) => {

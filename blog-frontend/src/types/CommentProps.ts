@@ -1,3 +1,3 @@
-export type CommentProps = {
+export type CommentsProps = {
   postId: string;
 };
