@@ -4,26 +4,23 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
 exports.post = [
-  body("name")
-    .escape()
-    .trim(),
-  body("message")
-    .escape()
-    .trim(),
+  body("name").escape().trim(),
+  body("message").escape().trim(),
 
   asyncHandler(async (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      console.log(errors)
-      res.json({
-        errors: errors.array()
-      });
-    } else {
-      console.log("start");
-      const postId = req.params.postId;
-      const blogPost = await BlogPost.findOne({ _id: postId }).exec();
-      console.log(req.body.name, req.body.message);
-      res.json(blogPost);
-    }
+    console.log("start");
+    const postId = req.params.postId;
+
+    const comment = new Comment({
+      name: req.body.name,
+      message: req.body.message,
+      date: new Date(),
+      blogPost: postId,
+    });
+
+    const blogPost = await BlogPost.findOne({ _id: postId }).exec();
+    blogPost.comments.push(comment._id);
+    await Promise.all([blogPost.save(), comment.save()]);
+    res.json(res.status = 200)
   }),
 ];
