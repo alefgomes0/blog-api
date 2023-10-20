@@ -82,7 +82,7 @@ export const CommentForm = ({
               onBlur={handleBlur}
               className={`pl-2 shadow-inner bg-neutral-400 opacity-90 w-72 h-[28px] mb-1 focus:border-0 outline-0 rounded ${
                 errors.name && touched.name
-                  ? "focus:ring-red-300"
+                  ? "focus:ring-red-400"
                   : "focus:ring-sky-300"
               } focus:ring-2 focus:ring-sky-300`}
             />
@@ -100,7 +100,7 @@ export const CommentForm = ({
               onBlur={handleBlur}
               className={`pl-2 shadow-inner bg-neutral-400 opacity-90 w-96 h-44 mb-1 focus:border-0 outline-0 rounded focus:ring-2 ${
                 errors.message && touched.message
-                  ? "focus:ring-red-300"
+                  ? "focus:ring-red-400"
                   : "focus:ring-sky-300"
               } focus:ring-sky-300`}
             />

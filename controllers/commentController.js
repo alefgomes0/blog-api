@@ -34,4 +34,8 @@ exports.post = [
     ]);
     res.status(200).json({ message: "Comment sent successfully" });
   }),
+
+  (exports.delete = asyncHandler(async (req, res, next) => {
+    await Comment.findByIdAndDelete(req.params.commentId).exec();
+  })),
 ];

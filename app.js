@@ -11,7 +11,7 @@ const app = express();
 const cors = require("cors");
 const corsOptions = {
   origin: `${process.env.REQ_ORIGIN}`,
-  optionsSuccessStatus: 200 
+  optionsSuccessStatus: 200,
 }
 
 const mongoose = require("mongoose");

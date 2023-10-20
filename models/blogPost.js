@@ -7,7 +7,6 @@ const BlogPostSchema = new Schema({
   synopsis: { type: String, required: true },
   content: { type: String, required: true },
   date: { type: Date },
-  comments: [{ type: Schema.Types.ObjectId, ref: "Comments" }],
   is_published: { type: Boolean, required: true },
 });
 
